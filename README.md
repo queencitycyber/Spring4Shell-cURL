@@ -26,8 +26,8 @@ Bonus: I guess you could do something like the following to blindly spray webshe
 
 
    
-![image](https://user-images.githubusercontent.com/13237617/161151428-d3f69c1e-5c05-4a62-b6ac-d4a8bf74d196.png)
-   
+![image](https://user-images.githubusercontent.com/13237617/161151879-3cf326ad-6610-4bfe-992d-1d03279e6da5.png)
+
    
    
    
