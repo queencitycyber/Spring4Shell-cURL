@@ -10,7 +10,7 @@ I hadn't seen this method posted anywhere, just wanted to document. 99% of this 
 
 0. Clone the repo. You'll need Docker and cURL. If somehow you don't have cURL, download from: [https://everything.curl.dev/get](https://everything.curl.dev/get)
 1. Deploy Docker container:  
-`docker image build -t retro/stupidrumor ./ && docker container run -it --publish 8080:8080 retro/stupidrumor`.
+`docker image build ./ && docker container run -it --publish 8080:8080 retro/stupidrumor`.
 3. Issue the cURL command:  
 `curl --config request.txt http://localhost:8080/stupidRumor_war/index`. This cURL command first reads from the `requests.txt` file. Inside the `request.txt` are things like the specific headers we need to exploit the vulnerable application. Noteably, the last line is `data-binary = "@body.txt"`, which contains our POST body. 
    
