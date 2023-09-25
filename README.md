@@ -1,5 +1,5 @@
 # Spring4Shell-cURL
-Weaponzing cURL configs to exploit Spring4Shell (CVE-2022-22965)
+Weaponizing cURL configs to exploit Spring4Shell (CVE-2022-22965)
 
 
 ## cURL? Really?
